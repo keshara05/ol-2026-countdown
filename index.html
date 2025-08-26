@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O/L 2026 Countdown • Sri Lanka</title>
+  <meta name="description" content="Trilingual, beautiful live countdown to Sri Lankan G.C.E. O/L 2026." />
+  <meta property="og:title" content="O/L 2026 Countdown • Sri Lanka" />
+  <meta property="og:description" content="Trilingual, beautiful live countdown to Sri Lankan G.C.E. O/L 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/hero.jpg" />
+  <meta name="theme-color" content="#22d3ee" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Chivo+Mono:wght@500;700&family=Noto+Sans+Sinhala:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --glass:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.14);
+      --text:#e8f0ff;
+      --muted:#9fb0d3;
+      --primary:#22d3ee;
+      --secondary:#a78bfa;
+      --accent:#34d399;
+      --font-body: Outfit, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --font-mono: "Chivo Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --hero-image: url('assets/hero.jpg'); /* change in Settings or put your own image here */
+    }
+    [data-theme="light"]{
+      --bg:#f6f8ff;
+      --glass:rgba(255,255,255,.85);
+      --border:rgba(0,0,0,.08);
+      --text:#0b1220;
+      --muted:#4a587a;
+      --primary:#0891b2;
+      --secondary:#7c3aed;
+      --accent:#059669;
+    }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(70% 60% at 20% 20%, #13213b 0%, transparent 60%),
+        radial-gradient(70% 60% at 80% 80%, #1a1033 0%, transparent 60%),
+        linear-gradient(120deg, #0b1220 0%, #0e1426 100%);
+      font-family: var(--font-body);
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:24px 16px 48px;
+    }
+    html[lang="si"]{ --font-body: "Noto Sans Sinhala", Outfit, system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
+    html[lang="ta"]{ --font-body: "Noto Sans Tamil", Outfit, system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
+
+    .wrap{ width:min(1100px, 100%); }
+
+    /* Top rectangular developer banner */
+    .dev-banner{
+      width:100%;
+      margin:0 0 14px;
+      border-radius:14px;
+      padding:1px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      background-size: 300% 100%;
+      animation: gradientShift 14s ease-in-out infinite;
+      position: sticky; top: 0; z-index: 200;
+    }
+    .dev-inner{
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      padding:8px 12px;
+      border-radius:13px; background:var(--glass); border:1px solid var(--border);
+      backdrop-filter: blur(6px) saturate(130%);
+    }
+    .dev-label{ font-size:12px; color:var(--muted); }
+    .dev-name{ font-weight:700; color:var(--text); text-decoration:none; }
+    .dev-name:hover{ text-decoration:underline; }
+    .dev-cta{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:28px; height:28px; border-radius:8px;
+      border:1px solid var(--border); background:var(--glass);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .dev-cta:hover{ transform: translateY(-1px); border-color:transparent; background:linear-gradient(135deg, rgba(34,211,238,.15), rgba(167,139,250,.15));}
+    .dev-cta svg{ width:16px; height:16px; fill: var(--text); opacity:.9; }
+
+    @keyframes gradientShift{
+      0%{ background-position: 0% 50%; }
+      50%{ background-position: 100% 50%; }
+      100%{ background-position: 0% 50%; }
+    }
+
+    /* Header and controls */
+    .topbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    #logo{ width:44px; height:44px; object-fit:contain; border-radius:10px; background:var(--glass); border:1px solid var(--border); padding:6px; }
+    .badge{
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color:white; padding:5px 10px; border-radius:999px; font-size:12px; letter-spacing:.3px; font-weight:700;
+      box-shadow:0 6px 24px rgba(34,211,238,.35);
+      display:inline-block;
+    }
+    h1{ margin:6px 0 4px; font-size:clamp(26px, 4.2vw, 46px); line-height:1.05; letter-spacing:-.02em; font-weight:800; }
+    .sub{ color:var(--muted); font-size:14px; }
+
+    .controls{ display:flex; align-items:center; gap:8px; }
+    .btn{
+      appearance:none; border:1px solid var(--border); background:var(--glass); color:var(--text);
+      border-radius:12px; padding:10px 14px; font-weight:600; cursor:pointer; backdrop-filter:saturate(130%) blur(8px);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color:transparent; background:linear-gradient(135deg, rgba(34,211,238,.15), rgba(167,139,250,.15));}
+    .btn.primary{ background: linear-gradient(135deg, var(--primary), var(--secondary)); border-color:transparent; color:#fff; box-shadow:0 10px 26px rgba(34,211,238,.35); }
+    .btn.round{ border-radius:999px; padding:10px 12px; line-height:0; font-size:14px; }
+    .btn.small{ padding:7px 10px; font-size:12px; border-radius:10px; }
+
+    .lang{ display:flex; gap:6px; }
+    .lang .btn{ min-width:36px; }
+
+    /* Animated rectangular hero */
+    .hero{
+      position:relative; border-radius:22px; overflow:hidden; margin:10px 0 18px; height:clamp(160px, 34vw, 260px);
+      border:1px solid var(--border); background: var(--glass);
+    }
+    .hero::before{
+      content:""; position:absolute; inset:0;
+      background-image: var(--hero-image);
+      background-size:cover; background-position:center;
+      filter: contrast(1.05) saturate(1.1) brightness(.85);
+      opacity:.55;
+      transform-origin: center;
+      animation: kenburns 24s ease-in-out infinite alternate;
+    }
+    /* Aurora glow overlay */
+    .hero .aurora{
+      position:absolute; inset:-10% -20%;
+      background:
+        radial-gradient(40% 60% at 20% 30%, rgba(34,211,238,.25), transparent 60%),
+        radial-gradient(35% 55% at 80% 70%, rgba(167,139,250,.25), transparent 60%),
+        radial-gradient(30% 50% at 60% 20%, rgba(52,211,153,.22), transparent 60%);
+      filter: blur(36px); mix-blend-mode: screen; opacity:.85;
+      animation: auroraMove 18s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    /* Soft shine layer */
+    .hero .shine{
+      position:absolute; inset:-50% -20%;
+      background: conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.08), rgba(255,255,255,0) 60%);
+      mix-blend-mode: soft-light; animation: spin 30s linear infinite;
+      pointer-events:none;
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.45));
+    }
+    @keyframes kenburns{
+      0%{ transform: scale(1.05) translateY(-1%); }
+      100%{ transform: scale(1.12) translateY(1%); }
+    }
+    @keyframes auroraMove{
+      0%{ transform: translate3d(-2%, -1%, 0) scale(1); }
+      100%{ transform: translate3d(2%, 1%, 0) scale(1.06); }
+    }
+    @keyframes spin{ to{ transform: rotate(360deg);} }
+
+    /* Countdown tiles */
+    .grid{ display:grid; grid-template-columns: repeat(4, minmax(140px, 1fr)); gap:16px; }
+    .tile{
+      position:relative; background:var(--glass); border:1px solid var(--border);
+      border-radius:22px; padding:22px; box-shadow: 0 10px 30px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+    .tile::after{
+      content:""; position:absolute; inset:-1px; border-radius:22px; pointer-events:none;
+      background: linear-gradient(130deg, rgba(34,211,238,.18), rgba(167,139,250,.18)); mix-blend-mode:overlay; opacity:.35;
+    }
+    .num{
+      font-family: var(--font-mono); font-weight:800; font-size: clamp(36px, 7vw, 64px);
+      line-height:1; letter-spacing:-.02em; text-shadow: 0 0 26px rgba(34,211,238,.35); display:block;
+    }
+    .num.flip{ animation: pop .45s ease; }
+    @keyframes pop{
+      0%{ transform: translateY(0) scale(1); filter:none; }
+      35%{ transform: translateY(-6px) scale(1.03); filter: brightness(1.2); }
+      100%{ transform: translateY(0) scale(1); filter:none; }
+    }
+    .label{ margin-top:8px; display:inline-block; font-size:13px; text-transform:uppercase; letter-spacing:.18em;
+      background: linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; opacity:.9; }
+
+    .cta{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+    .notice{ margin-top:18px; color:var(--muted); font-size:13px; }
+    .footer{ margin-top:28px; display:flex; gap:10px; flex-wrap:wrap; }
+    .pill{ font-size:12px; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:6px 10px; background:var(--glass); }
+
+    .menu{ position:relative; display:inline-block; }
+    .menu .panel{
+      position:absolute; top:calc(100% + 6px); left:0; min-width:230px; z-index:30; display:none;
+      background:var(--glass); border:1px solid var(--border); border-radius:14px; padding:8px;
+      box-shadow:0 20px 40px rgba(0,0,0,.35); backdrop-filter: blur(8px) saturate(130%);
+    }
+    .menu.open .panel{ display:block; }
+    .menu .panel .item{ display:flex; gap:8px; width:100%; text-align:left; }
+
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:100; }
+    .modal.show{ display:flex; }
+    .overlay{ position:absolute; inset:0; background:rgba(0,0,0,.55); backdrop-filter: blur(2px); }
+    .card{ position:relative; width:min(560px, 92vw); background:var(--glass); border:1px solid var(--border); border-radius:18px; padding:18px; z-index:1; }
+    .card h3{ margin:4px 0 12px; font-size:20px; }
+    .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+    .field label{ font-size:13px; color:var(--muted); }
+    input[type="text"], input[type="date"], input[type="time"]{
+      width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:var(--glass); color:var(--text);
+      font-weight:600;
+    }
+    .actions{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:8px; }
+    .actions-right{ display:flex; gap:8px; }
+
+    @media (max-width:700px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <!-- TOP RECTANGULAR DEV BANNER -->
+    <div class="dev-banner" role="contentinfo">
+      <div class="dev-inner">
+        <span class="dev-label">Developed by</span>
+        <a id="devLink" href="#" target="_blank" rel="noopener" class="dev-name">Keshara Rathnayaka</a>
+        <a id="devGit" class="dev-cta" href="#" target="_blank" rel="noopener" aria-label="GitHub">
+          <!-- GitHub icon (inline SVG) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.98 5.25.98 11.52c0 4.86 3.15 8.98 7.52 10.43.55.1.75-.24.75-.53 0-.26-.01-1.12-.02-2.04-3.06.66-3.71-1.3-3.71-1.3-.5-1.27-1.23-1.6-1.23-1.6-.99-.67.08-.66.08-.66 1.1.08 1.68 1.13 1.68 1.13.98 1.68 2.56 1.2 3.18.91.1-.71.38-1.2.69-1.48-2.44-.28-5.01-1.22-5.01-5.44 0-1.2.43-2.18 1.14-2.95-.11-.28-.49-1.42.11-2.96 0 0 .93-.3 3.05 1.13.88-.25 1.82-.38 2.76-.39.94.01 1.88.14 2.76.39 2.12-1.43 3.05-1.13 3.05-1.13.6 1.54.22 2.68.11 2.96.71.77 1.14 1.75 1.14 2.95 0 4.23-2.57 5.15-5.02 5.43.39.34.74 1.01.74 2.04 0 1.47-.01 2.66-.01 3.02 0 .29.2.64.76.53 4.37-1.45 7.51-5.57 7.51-10.43C23.02 5.25 18.27.5 12 .5z"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand">
+        <img id="logo" src="assets/logo.svg" alt="Logo" onerror="this.style.display='none'">
+        <div>
+          <span class="badge" data-i18n="badge">Sri Lanka • O/L</span>
+          <h1 id="headline" data-i18n="title">O/L 2026 Countdown</h1>
+          <div class="sub"><span data-i18n="starts">Starts</span>: <span id="dateLabel">Loading…</span> • <span data-i18n="timezoneName">SLST (UTC+5:30)</span></div>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="lang">
+          <button class="btn round" data-lang="si" aria-label="සිංහල">සි</button>
+          <button class="btn round" data-lang="ta" aria-label="தமிழ்">த</button>
+          <button class="btn round" data-lang="en" aria-label="English">EN</button>
+        </div>
+        <button class="btn round" id="themeBtn" aria-label="Toggle theme">🌓</button>
+        <button class="btn round" id="settingsBtn" aria-label="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Animated rectangular hero -->
+    <div class="hero" role="img" aria-label="Sri Lanka O/L 2026 hero image">
+      <div class="aurora"></div>
+      <div class="shine"></div>
+    </div>
+
+    <section class="grid" aria-live="polite">
+      <div class="tile" aria-label="Days remaining">
+        <span class="num" id="days" data-value="">0</span>
+        <span class="label" data-i18n="days">Days</span>
+      </div>
+      <div class="tile" aria-label="Hours remaining">
+        <span class="num" id="hours" data-value="">00</span>
+        <span class="label" data-i18n="hours">Hours</span>
+      </div>
+      <div class="tile" aria-label="Minutes remaining">
+        <span class="num" id="minutes" data-value="">00</span>
+        <span class="label" data-i18n="minutes">Minutes</span>
+      </div>
+      <div class="tile" aria-label="Seconds remaining">
+        <span class="num" id="seconds" data-value="">00</span>
+        <span class="label" data-i18n="seconds">Seconds</span>
+      </div>
+    </section>
+
+    <div class="cta">
+      <div class="menu" id="calMenu">
+        <button class="btn primary" id="addCal" data-i18n="addCal">Add to calendar</button>
+        <div class="panel">
+          <button class="btn item" id="gcalBtn">🗓️ <span data-i18n="google">Google Calendar</span></button>
+          <button class="btn item" id="icsBtn">💾 <span data-i18n="apple">Apple/Outlook (.ics)</span></button>
+        </div>
+      </div>
+      <button class="btn" id="shareBtn" data-i18n="share">Share</button>
+      <button class="btn" id="copyBtn" data-i18n="copy">Copy link</button>
+    </div>
+
+    <div class="notice" id="tip" data-i18n="tip">Tip: Use Settings to set the exact time or change text.</div>
+
+    <div class="footer">
+      <span class="pill" data-i18n="timezone">Timezone: Asia/Colombo</span>
+      <span class="pill" data-i18n="design">Design: Glass + Gradient</span>
+      <span class="pill" data-i18n="responsive">Responsive</span>
+    </div>
+  </div>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // ========================
+    // Config and i18n
+    // ========================
+    const TIMEZONE = "Asia/Colombo"; // SLST
+    // Update this with your real GitHub link
+    const DEV = {
+      name: "Keshara Rathnayaka",
+      github: "GITHUB_URL_HERE" // e.g., "https://github.com/KesharaRathnayaka"
+    };
+    const DEFAULT_CFG = {
+      iso: "2026-02-17T08:30:00+05:30",
+      lang: "en",
+      customTitle: ""
+    };
+
+    const i18n = {
+      en: {
+        badge: "Sri Lanka • O/L",
+        title: "O/L 2026 Countdown",
+        starts: "Starts",
+        timezoneName: "SLST (UTC+5:30)",
+        days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
+        addCal: "Add to calendar",
+        google: "Google Calendar",
+        apple: "Apple/Outlook (.ics)",
+        share: "Share", copy: "Copy link",
+        tip: "Tip: Use Settings to set the exact time or change text.",
+        design: "Design: Glass + Gradient",
+        responsive: "Responsive",
+        timezone: "Timezone: Asia/Colombo",
+        settings: "Settings",
+        save: "Save", cancel: "Cancel", reset: "Reset to defaults",
+        examDay: "Good luck! It’s O/L exam day 🎉"
+      },
+      si: {
+        badge: "ශ්‍රී ලංකා • O/L",
+        title: "O/L 2026 කවුන්ට්ඩවුන්",
+        starts: "ආරම්භ වන්නේ",
+        timezoneName: "SLST (UTC+5:30)",
+        days: "දින", hours: "පැය", minutes: "විනාඩි", seconds: "තත්පර",
+        addCal: "දින දර්ශණයට එක් කරන්න",
+        google: "Google දින දර්ශණය",
+        apple: "Apple/Outlook (.ics)",
+        share: "බෙදාගන්න", copy: "සබැඳිය පිටපත් කරන්න",
+        tip: "ඉලක්ක වේලාව හෝ පෙළ වෙනස් කිරීමට සැකසුම් භාවිතා කරන්න.",
+        design: "රූපලාවණ్యం: Glass + Gradient",
+        responsive: "උපාංග සියල්ලට සුදුසු",
+        timezone: "කාල කලාපය: Asia/Colombo",
+        settings: "සැකසුම්",
+        save: "සුරකින්න", cancel: "අවලංගු", reset: "පෙරනිමියට",
+        examDay: "සාර්ථකත්වයක් වේවා! අද O/L පරීක්ෂණ දිනය 🎉"
+      },
+      ta: {
+        badge: "இலங்கை • O/L",
+        title: "O/L 2026 கவுண்ட்டவுன்",
+        starts: "தொடக்கம்",
+        timezoneName: "SLST (UTC+5:30)",
+        days: "நாட்கள்", hours: "மணி", minutes: "நிமிடங்கள்", seconds: "வினாடிகள்",
+        addCal: "நாட்காட்டியில் சேர்க்க",
+        google: "Google நாட்காட்டி",
+        apple: "Apple/Outlook (.ics)",
+        share: "பகிர்", copy: "இணைப்பை நகலெடு",
+        tip: "சரியான நேரத்தை அமைக்க அல்லது உரையை மாற்ற அமைப்புகளைப் பயன்படுத்தவும்.",
+        design: "வடிவமைப்பு: Glass + Gradient",
+        responsive: "அனைத்து சாதனங்களுக்கும் ஒத்திசைவு",
+        timezone: "நேர மண்டலம்: Asia/Colombo",
+        settings: "அமைப்புகள்",
+        save: "சேமி", cancel: "ரத்து", reset: "இயல்புநிலைக்கு",
+        examDay: "வெற்றி பெற வாழ்த்துக்கள்! இன்று O/L தேர்வு நாள் 🎉"
+      }
+    };
+    const localeMap = { en: "en-LK", si: "si-LK", ta: "ta-LK" };
+
+    // ========================
+    // State
+    // ========================
+    const $ = (sel) => document.querySelector(sel);
+    let cfg = loadCfg();
+    let target = new Date(cfg.iso);
+    let fired = false;
+
+    function loadCfg(){
+      try{
+        const saved = JSON.parse(localStorage.getItem("olCfg") || "{}");
+        return {...DEFAULT_CFG, ...saved};
+      }catch{ return {...DEFAULT_CFG}; }
+    }
+    function saveCfg(){
+      localStorage.setItem("olCfg", JSON.stringify(cfg));
+    }
+
+    // ========================
+    // UI Helpers
+    // ========================
+    function applyI18n(){
+      const dict = i18n[cfg.lang] || i18n.en;
+      document.documentElement.setAttribute("lang", cfg.lang);
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        if(dict[key]) el.textContent = dict[key];
+      });
+      $("#headline").textContent = cfg.customTitle || dict.title;
+      updateDateLabel();
+    }
+    function fmtDateLang(date){
+      return new Intl.DateTimeFormat(localeMap[cfg.lang] || "en-LK", {
+        dateStyle: "full", timeStyle: "short", timeZone: TIMEZONE
+      }).format(date);
+    }
+    function updateDateLabel(){ $("#dateLabel").textContent = fmtDateLang(target); }
+
+    function setNum(id, value, pad=false){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const prev = el.getAttribute("data-value");
+      const str = pad ? String(value).padStart(2, "0") : String(value);
+      if(prev !== String(value)){
+        el.textContent = str;
+        el.setAttribute("data-value", String(value));
+        el.classList.remove("flip"); void el.offsetWidth; el.classList.add("flip");
+      }
+    }
+    function toParts(ms){
+      const total = Math.max(0, Math.floor(ms/1000));
+      const days = Math.floor(total / 86400);
+      const hours = Math.floor((total % 86400) / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+      return { total, days, hours, minutes, seconds };
+    }
+    function celebrate(){
+      const burst = () => confetti({ particleCount: 120, spread: 70, startVelocity: 45, scalar: 1, ticks: 180, origin: { y: 0.6 }});
+      burst(); setTimeout(burst, 300); setTimeout(burst, 700);
+    }
+    function updateDocTitle(days, h, m, s){
+      const base = cfg.customTitle || (i18n[cfg.lang]?.title || "O/L 2026 Countdown");
+      document.title = `${days}d ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")} • ${base}`;
+    }
+
+    // Calendar helpers
+    function pad2(n){ return String(n).padStart(2,"0"); }
+    function toICSDateUTC(d){ return d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z"); }
+    function googleCalUrl(){
+      const title = encodeURIComponent("Sri Lankan G.C.E. O/L begins");
+      const details = encodeURIComponent("Countdown: " + location.href);
+      const isMidnight = target.getHours() === 0 && target.getMinutes() === 0 && target.getSeconds() === 0;
+      if(isMidnight){
+        const y = target.getUTCFullYear();
+        const m = pad2(target.getUTCMonth()+1);
+        const d = pad2(target.getUTCDate());
+        const start = `${y}${m}${d}`;
+        const end = `${y}${m}${d}`;
+        return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&ctz=${encodeURIComponent(TIMEZONE)}`;
+      }else{
+        const end = new Date(target.getTime() + 60*60*1000);
+        const startStr = toICSDateUTC(target);
+        const endStr = toICSDateUTC(end);
+        return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startStr}/${endStr}&details=${details}&ctz=${encodeURIComponent(TIMEZONE)}`;
+      }
+    }
+    function downloadICS(){
+      const isMidnight = target.getHours() === 0 && target.getMinutes() === 0 && target.getSeconds() === 0;
+      const lines = [
+        "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//OL 2026 Countdown//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT",
+        `UID:${Date.now()}@ol2026.local`,
+        `DTSTAMP:${toICSDateUTC(new Date())}`,
+      ];
+      if(isMidnight){
+        const y = target.getUTCFullYear();
+        const m = pad2(target.getUTCMonth()+1);
+        const d = pad2(target.getUTCDate());
+        const dt = `${y}${m}${d}`;
+        lines.push(`DTSTART;VALUE=DATE:${dt}`, `DTEND;VALUE=DATE:${dt}`);
+      }else{
+        const end = new Date(target.getTime() + 60*60*1000);
+        lines.push(`DTSTART:${toICSDateUTC(target)}`, `DTEND:${toICSDateUTC(end)}`);
+      }
+      lines.push(
+        "SUMMARY:Sri Lankan G.C.E. O/L begins",
+        "DESCRIPTION:Countdown site: " + location.href,
+        "END:VEVENT","END:VCALENDAR"
+      );
+      const blob = new Blob([lines.join("\r\n")], {type:"text/calendar;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "OL-2026.ics";
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    // Init theme
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+    // Apply i18n and date label
+    applyI18n(); updateDateLabel();
+
+    // Timer
+    function tick(){
+      const now = new Date();
+      const diff = target - now;
+      const { total, days, hours, minutes, seconds } = toParts(diff);
+      setNum("days", days);
+      setNum("hours", hours, true);
+      setNum("minutes", minutes, true);
+      setNum("seconds", seconds, true);
+      updateDocTitle(days, hours, minutes, seconds);
+      if(total === 0 && !fired){
+        fired = true;
+        $("#headline").textContent = i18n[cfg.lang]?.examDay || i18n.en.examDay;
+        celebrate();
+      }
+    }
+    tick(); setInterval(tick, 1000);
+
+    // Events
+    $("#themeBtn").addEventListener("click", ()=>{
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "light" ? "" : "light";
+      if(next) document.documentElement.setAttribute("data-theme", next);
+      else document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", next);
+    });
+    document.querySelectorAll(".lang .btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        cfg.lang = btn.getAttribute("data-lang");
+        saveCfg(); applyI18n();
+      });
+    });
+
+    // Calendar menu
+    const calMenu = $("#calMenu");
+    $("#addCal").addEventListener("click", ()=>{ calMenu.classList.toggle("open"); });
+    document.addEventListener("click", (e)=>{ if(!calMenu.contains(e.target)) calMenu.classList.remove("open"); });
+    $("#gcalBtn").addEventListener("click", ()=>{ window.open(googleCalUrl(), "_blank"); calMenu.classList.remove("open"); });
+    $("#icsBtn").addEventListener("click", ()=>{ downloadICS(); calMenu.classList.remove("open"); });
+
+    // Share and copy
+    $("#copyBtn").addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        const btn = $("#copyBtn"); const prev = btn.textContent;
+        btn.textContent = (i18n[cfg.lang]?.copy || i18n.en.copy) + " ✓";
+        setTimeout(()=>btn.textContent = i18n[cfg.lang]?.copy || i18n.en.copy, 1200);
+      }catch{ alert("Copy failed. Please copy the URL from your browser."); }
+    });
+    $("#shareBtn").addEventListener("click", async ()=>{
+      const dict = i18n[cfg.lang] || i18n.en;
+      const shareData = { title: $("#headline").textContent, text: dict.title, url: location.href };
+      if(navigator.share){
+        try{ await navigator.share(shareData); }catch{}
+      }else{
+        try{ await navigator.clipboard.writeText(location.href); alert("Link copied!"); }
+        catch{ alert("Sharing not supported. Please copy the URL."); }
+      }
+    });
+
+    // Settings modal (same as before, with hero and title controls)
+    const modal = document.createElement("div");
+    modal.className = "modal"; modal.id = "settingsModal";
+    modal.innerHTML = `
+      <div class="overlay"></div>
+      <div class="card">
+        <h3 id="settingsTitle">${(i18n[cfg.lang]?.settings || i18n.en.settings)}</h3>
+        <div class="field">
+          <label for="titleInput">Headline</label>
+          <input type="text" id="titleInput" placeholder="${(i18n[cfg.lang]?.title || i18n.en.title)}">
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="dateInput">Exam date (SL)</label>
+            <input type="date" id="dateInput" value="2026-02-17">
+          </div>
+          <div class="field">
+            <label for="timeInput">Start time (SL)</label>
+            <input type="time" id="timeInput" value="08:30">
+          </div>
+        </div>
+        <div class="field">
+          <label for="heroInput">Hero image (path/URL)</label>
+          <input type="text" id="heroInput" placeholder="assets/hero.jpg">
+        </div>
+        <div class="actions">
+          <button class="btn small" id="resetBtn">${(i18n[cfg.lang]?.reset || i18n.en.reset)}</button>
+          <div class="actions-right">
+            <button class="btn small" id="cancelBtn">${(i18n[cfg.lang]?.cancel || i18n.en.cancel)}</button>
+            <button class="btn primary small" id="saveBtn">${(i18n[cfg.lang]?.save || i18n.en.save)}</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    function openSettings(){
+      const d = new Date(cfg.iso);
+      const y = d.toLocaleString('en-CA', { timeZone: TIMEZONE, year:'numeric' });
+      const m = d.toLocaleString('en-CA', { timeZone: TIMEZONE, month:'2-digit' });
+      const day = d.toLocaleString('en-CA', { timeZone: TIMEZONE, day:'2-digit' });
+      const hh = d.toLocaleString('en-GB', { timeZone: TIMEZONE, hour12:false, hour:'2-digit' });
+      const mm = d.toLocaleString('en-GB', { timeZone: TIMEZONE, minute:'2-digit' });
+      $("#titleInput").value = cfg.customTitle || "";
+      $("#dateInput").value = `${y}-${m}-${day}`;
+      $("#timeInput").value = `${hh}:${mm}`;
+      $("#heroInput").value = getComputedStyle(document.documentElement).getPropertyValue('--hero-image').trim().replace(/^urlKATEX_INLINE_OPEN['"]?|['"]?KATEX_INLINE_CLOSE$/g,'') || "assets/hero.jpg";
+      modal.classList.add("show");
+    }
+    function closeSettings(){ modal.classList.remove("show"); }
+
+    $("#settingsBtn").addEventListener("click", openSettings);
+    modal.querySelector(".overlay").addEventListener("click", closeSettings);
+    $("#cancelBtn").addEventListener("click", closeSettings);
+    $("#resetBtn").addEventListener("click", ()=>{
+      cfg = {...DEFAULT_CFG};
+      saveCfg();
+      target = new Date(cfg.iso); fired = false;
+      document.documentElement.style.setProperty('--hero-image', "url('assets/hero.jpg')");
+      applyI18n(); tick(); closeSettings();
+    });
+    $("#saveBtn").addEventListener("click", ()=>{
+      const customTitle = $("#titleInput").value.trim();
+      const date = $("#dateInput").value;
+      const time = $("#timeInput").value || "00:00";
+      const hero = $("#heroInput").value || "assets/hero.jpg";
+      const iso = `${date}T${time}:00+05:30`;
+      cfg.customTitle = customTitle;
+      cfg.iso = iso;
+      saveCfg();
+      target = new Date(cfg.iso); fired = false;
+      document.documentElement.style.setProperty('--hero-image', `url('${hero}')`);
+      applyI18n(); tick(); closeSettings();
+    });
+
+    // Set developer info
+    const devLinkEl = document.getElementById("devLink");
+    const devGitEl = document.getElementById("devGit");
+    if(DEV?.name) devLinkEl.textContent = DEV.name;
+    if(DEV?.github && DEV.github !== "https://github.com/keshara05"){
+      devLinkEl.href = DEV.github;
+      devGitEl.href = DEV.github;
+    }else{
+      devLinkEl.href = "#";
+      devGitEl.href = "#";
+      devGitEl.setAttribute("title", "https://github.com/keshara05");
+    }
+  </script>
+</body>
+</html>
