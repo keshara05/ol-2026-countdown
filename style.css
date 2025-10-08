@@ -1,0 +1,172 @@
+:root {
+    --bg-color: #020024;
+    --glow-color: #00d4ff;
+    --secondary-glow: #e400ff;
+    --text-color: #ffffff;
+    --label-color: rgba(255, 255, 255, 0.7);
+    --ring-bg-color: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Rajdhani', sans-serif;
+    overflow: hidden;
+}
+
+#starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.overlay {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+    margin-bottom: 0.2em;
+}
+
+header h2 {
+    font-size: 1.5rem;
+    color: var(--label-color);
+    margin-bottom: 3em;
+}
+
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.time-circle {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    transition: transform 0.3s ease;
+}
+
+.time-circle:hover {
+    transform: scale(1.1);
+}
+
+.time-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.time-text span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.time-text label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--label-color);
+}
+
+.progress-ring {
+    transform: rotate(-90deg); /* Start the circle from the top */
+}
+
+.progress-ring__bg {
+    fill: transparent;
+    stroke: var(--ring-bg-color);
+    stroke-width: 8;
+}
+
+.progress-ring__circle {
+    fill: transparent;
+    stroke: var(--glow-color);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s linear;
+    filter: drop-shadow(0 0 5px var(--glow-color));
+}
+
+/* Different colors for each ring */
+#hours-ring { stroke: #39ff14; filter: drop-shadow(0 0 5px #39ff14); }
+#minutes-ring { stroke: #ffea00; filter: drop-shadow(0 0 5px #ffea00); }
+#seconds-ring { stroke: var(--secondary-glow); filter: drop-shadow(0 0 5px var(--secondary-glow)); }
+
+
+.exam-message {
+    font-size: 2rem;
+    padding: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    font-size: 1rem;
+    color: var(--label-color);
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 { font-size: 1.8rem; }
+    header h2 { font-size: 1.2rem; margin-bottom: 2em; }
+    
+    .countdown-container {
+        gap: 15px;
+    }
+
+    .time-circle { width: 120px; height: 120px; }
+    .progress-ring { width: 120px; height: 120px; }
+    .progress-ring circle { cx: 60; cy: 60; r: 52; stroke-width: 6; }
+    .time-text span { font-size: 2rem; }
+    .time-text label { font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+    .countdown-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .time-circle { margin: 0 auto; }
+}
